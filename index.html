@@ -890,8 +890,9 @@
                 try {
                     const response = await emailjs.send('service_14n6vx', 'template_mirjyof', {
                         to_email: 'horizontecors@gmail.com',
-                        name: nameInput.value,
-                        email: emailInput.value,
+                        from_name: nameInput.value,
+                        from_email: emailInput.value,
+                        requirement_type: typeInput.value,
                         message: messageInput.value
                     });
 
@@ -908,8 +909,8 @@
                         alert('Error al enviar el mensaje. Por favor intenta de nuevo.');
                     }
                 } catch (error) {
-                    alert('Error: ' + error.text);
                     console.error('Error:', error);
+                    alert('Error al enviar el mensaje: ' + (error.message || 'Por favor intenta de nuevo'));
                 } finally {
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = originalText;
