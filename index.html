@@ -924,7 +924,7 @@
                     }
                 } catch (error) {
                     console.error('Error:', error);
-                    alert('Error al enviar el mensaje: ' + (error.message || 'Por favor intenta de nuevo'));
+                    alert('Error al enviar: ' + (error.message || 'Intenta de nuevo'));
                 } finally {
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = originalText;
