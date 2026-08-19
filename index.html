@@ -848,7 +848,21 @@
         const successModal = document.getElementById('success-modal');
         const closeModalBtn = document.getElementById('close-modal');
 
+        // Ensure EmailJS is loaded
+        function waitForEmailJS() {
+            return new Promise((resolve) => {
+                if (typeof emailjs !== 'undefined') {
+                    resolve();
+                } else {
+                    setTimeout(() => waitForEmailJS().then(resolve), 100);
+                }
+            });
+        }
+
         submitBtn.addEventListener('click', async () => {
+            // Wait for EmailJS to be ready
+            await waitForEmailJS();
+
             const nameInput = document.getElementById('name');
             const emailInput = document.getElementById('email');
             const typeInput = document.getElementById('type');
