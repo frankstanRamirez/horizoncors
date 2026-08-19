@@ -18,7 +18,10 @@
         rel="stylesheet" />
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/index.min.js"></script>
     <script type="text/javascript">
-        emailjs.init('usI5sC5lcTfTDcLGR');
+        // Wait for EmailJS to load before initializing
+        if (typeof emailjs !== 'undefined') {
+            emailjs.init('usI5sC5lcTfTDcLGR');
+        }
     </script>
     <script id="tailwind-config">
         tailwind.config = {
@@ -848,14 +851,23 @@
         const successModal = document.getElementById('success-modal');
         const closeModalBtn = document.getElementById('close-modal');
 
-        // Ensure EmailJS is loaded
+        // Ensure EmailJS is loaded and initialized
         function waitForEmailJS() {
             return new Promise((resolve) => {
-                if (typeof emailjs !== 'undefined') {
-                    resolve();
-                } else {
-                    setTimeout(() => waitForEmailJS().then(resolve), 100);
-                }
+                const checkEmailJS = () => {
+                    if (typeof emailjs !== 'undefined' && emailjs.init) {
+                        // Initialize if not already done
+                        try {
+                            emailjs.init('usI5sC5lcTfTDcLGR');
+                        } catch (e) {
+                            // Already initialized
+                        }
+                        resolve();
+                    } else {
+                        setTimeout(checkEmailJS, 100);
+                    }
+                };
+                checkEmailJS();
             });
         }
 
