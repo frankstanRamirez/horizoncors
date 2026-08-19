@@ -1,0 +1,10 @@
+{
+  "name": "horizoncors",
+  "version": "1.0.0",
+  "description": "HorizonCors - Innovación en cada dirección",
+  "scripts": {
+    "build": "echo 'Static site - no build needed'",
+    "start": "echo 'Site is ready'"
+  },
+  "private": true
+}
