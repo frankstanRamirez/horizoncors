@@ -834,7 +834,7 @@
 
     <!-- Lead Capture Popup - Subtle Edition -->
     <div id="lead-popup"
-        class="fixed bottom-6 left-6 z-50 max-w-sm w-full hidden transition-all duration-500 translate-y-8 opacity-0">
+        class="fixed bottom-6 left-6 z-50 max-w-sm w-full hidden transition-all duration-500 translate-y-8 opacity-0 sm:bottom-6 sm:left-6 top-auto">
         <div class="bg-white rounded-2xl shadow-2xl border border-primary/10 p-6 relative overflow-hidden">
             <!-- Decorative top bar -->
             <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary"></div>
@@ -1077,9 +1077,16 @@
         // Show after 15 seconds - slides up from bottom
         setTimeout(() => {
             if (!sessionStorage.getItem('popupShown')) {
+                // On mobile, show at top to avoid overlap with cookie banner
+                if (window.innerWidth < 640) {
+                    leadPopup.classList.remove('bottom-6', 'left-6');
+                    leadPopup.classList.add('top-24', 'left-2', 'right-2', 'max-w-full');
+                    leadPopup.classList.remove('translate-y-8');
+                    leadPopup.classList.add('-translate-y-4');
+                }
                 leadPopup.classList.remove('hidden');
                 setTimeout(() => {
-                    leadPopup.classList.remove('opacity-0', 'translate-y-8');
+                    leadPopup.classList.remove('opacity-0', 'translate-y-8', '-translate-y-4');
                 }, 10);
                 sessionStorage.setItem('popupShown', 'true');
             }
